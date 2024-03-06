@@ -9,7 +9,6 @@ type TodoModalProps = {
   open: boolean
 };
 
-
 const TodoModal: React.FC<TodoModalProps> = ({setOpen, open}) => {
   const dispatch = useAppDispatch();
 
@@ -33,8 +32,8 @@ const TodoModal: React.FC<TodoModalProps> = ({setOpen, open}) => {
           onSubmit: (event: React.FormEvent<HTMLFormElement>): void => {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries((formData as any).entries());
-            const name = formJson.name;
+            const name = formData.get("name") as string; 
+            
             if(name.length <= MAX_CHARACTERS) {
               dispatch(addTodo(name));
               handleClose();
